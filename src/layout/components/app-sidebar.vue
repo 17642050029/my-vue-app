@@ -1,4 +1,5 @@
 <template>
+<el-aside width="200px">
 	<div class="sidebar">
 		<el-menu
 			class="sidebar-el-menu"
@@ -48,6 +49,7 @@
 			</template>
 		</el-menu>
 	</div>
+	</el-aside>
 </template>
 
 <script setup lang="ts">
@@ -143,10 +145,10 @@ const onRoutes = computed(() => {
 <style scoped>
 .sidebar {
 	display: block;
-	position: absolute;
+	/* position: absolute;
 	left: 0;
 	top: 70px;
-	bottom: 0;
+	bottom: 0; */
 	overflow-y: scroll;
 }
 .sidebar::-webkit-scrollbar {

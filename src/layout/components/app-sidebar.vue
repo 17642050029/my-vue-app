@@ -1,61 +1,63 @@
 <template>
-<el-aside width="200px">
-	<div class="sidebar">
-		<el-menu
-			class="sidebar-el-menu"
-			:default-active="onRoutes"
-
-			background-color="#324157"
-			text-color="#bfcbd9"
-			active-text-color="#20a0ff"
-			unique-opened
-			router
-		>
-			<template v-for="item in items">
-				<template v-if="item.subs">
-					<el-sub-menu :index="item.index" :key="item.index" v-permiss="item.permiss">
-						<template #title>
-							<el-icon>
-								<component :is="item.icon"></component>
-							</el-icon>
-							<span>{{ item.title }}</span>
-						</template>
-						<template v-for="subItem in item.subs">
-							<el-sub-menu
-								v-if="subItem.subs"
-								:index="subItem.index"
-								:key="subItem.index"
-								v-permiss="item.permiss"
-							>
-								<template #title>{{ subItem.title }}</template>
-								<el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
-									{{ threeItem.title }}
-								</el-menu-item>
-							</el-sub-menu>
-							<el-menu-item v-else :index="subItem.index" v-permiss="item.permiss">
-								{{ subItem.title }}
-							</el-menu-item>
-						</template>
-					</el-sub-menu>
-				</template>
-				<template v-else>
-					<el-menu-item :index="item.index" :key="item.index" v-permiss="item.permiss">
-						<el-icon>
-							<component :is="item.icon"></component>
-						</el-icon>
-						<template #title>{{ item.title }}</template>
-					</el-menu-item>
-				</template>
-			</template>
-		</el-menu>
-	</div>
-	</el-aside>
+    <el-aside>
+      <div class="logo">
+        {{ sidebar.collapse ? '1' : '后台管理系统' }}
+      </div>
+      <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="2"
+        text-color="#fff" :collapse="sidebar.collapse" @open="handleOpen" @close="handleClose">
+        <el-sub-menu index="1">
+          <template #title>
+            <el-icon>
+              <location />
+            </el-icon>
+            <span>Navigator One</span>
+          </template>
+          <el-menu-item-group title="Group One">
+            <el-menu-item index="1-1">item one</el-menu-item>
+            <el-menu-item index="1-2">item two</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="Group Two">
+            <el-menu-item index="1-3">item three</el-menu-item>
+          </el-menu-item-group>
+          <el-sub-menu index="1-4">
+            <template #title>item four</template>
+            <el-menu-item index="1-4-1">item one</el-menu-item>
+          </el-sub-menu>
+        </el-sub-menu>
+        <el-menu-item index="2">
+          <el-icon>
+            <icon-menu />
+          </el-icon>
+          <span>Navigator Two</span>
+        </el-menu-item>
+        <el-menu-item index="3" disabled>
+          <el-icon>
+            <document />
+          </el-icon>
+          <span>Navigator Three</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <el-icon>
+            <setting />
+          </el-icon>
+          <span>Navigator Four</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-// import { useSidebarStore } from '../store/sidebar';
+import { useSidebarStore } from '@/store/sidebar';
 import { useRoute } from 'vue-router';
+
+const sidebar = useSidebarStore()
+const handleOpen = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
 const items = [
 	{
 		icon: 'Odometer',
@@ -142,22 +144,17 @@ const onRoutes = computed(() => {
 // const sidebar = useSidebarStore();
 </script>
 
-<style scoped>
-.sidebar {
-	display: block;
-	/* position: absolute;
-	left: 0;
-	top: 70px;
-	bottom: 0; */
-	overflow-y: scroll;
+<style>
+.el-aside {
+  width: auto;
+  background-color: #545c64;
 }
-.sidebar::-webkit-scrollbar {
-	width: 0;
+.el-aside .el-menu {
+  border: none;
 }
-.sidebar-el-menu:not(.el-menu--collapse) {
-	width: 250px;
-}
-.sidebar > ul {
-	height: 100%;
+.logo {
+  text-align: center;
+  line-height: 70px;
+  color: #fff;
 }
 </style>

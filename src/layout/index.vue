@@ -1,26 +1,21 @@
-<script setup lang="ts">
-import AppSidebar from './components/app-sidebar.vue'
-import AppHeader from './components/app-header.vue'
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-} from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router';
-import { useSidebarStore } from '../store/sidebar'
-const sidebar = useSidebarStore()
-const router = useRouter()
-
+<script setup lang="ts" name="Layout">
+import LayoutSidebar from './components/layout-sidebar.vue'
+import LayoutHeader from './components/layout-header.vue'
+import LayoutMain from './components/layout-main.vue'
 </script>
+
 <template>
   <el-container>
-    <AppSidebar />
+    <el-aside>
+      <LayoutSidebar />
+    </el-aside>
     <el-container>
       <el-header>
-        <AppHeader />
+        <LayoutHeader />
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <LayoutMain />
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -29,8 +24,8 @@ const router = useRouter()
 .el-container {
   height: 100%;
 }
-
-
-
-
+.el-container .el-aside {
+	width: auto;
+	background-color: #545c64;
+}
 </style>

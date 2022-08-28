@@ -2,9 +2,9 @@
 </script>
 
 <template>
-<div>
-    123
-</div>
+    <el-scrollbar>
+        <router-view />
+  </el-scrollbar>
 </template>
 
 <style>

@@ -29,7 +29,7 @@ const handleCommand = (command: string) => {
 </script>
 
 <template>
-  <div class="app-header">
+  <div class="layout-header">
     <div class="collapse-btn" @click="sidebar.handleCollapse()">
       <el-icon v-if="sidebar.collapse">
         <Expand />
@@ -52,8 +52,7 @@ const handleCommand = (command: string) => {
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="user">个人中心</el-dropdown-item>
-              <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -63,8 +62,20 @@ const handleCommand = (command: string) => {
 </template>
 
 <style>
-.el-header {
+.layout-header {
   width: 100%;
+  height: 70px;
+  font-size: 22px;
+}
+
+.collapse-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  float: left;
+  padding: 0 21px;
+  cursor: pointer;
 }
 
 .collapse-btn {
@@ -80,6 +91,12 @@ const handleCommand = (command: string) => {
 .header-right {
   float: right;
   padding-right: 50px;
+}
+
+.header-user-con {
+  display: flex;
+  height: 70px;
+  align-items: center;
 }
 
 .user-name {

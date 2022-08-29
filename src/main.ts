@@ -8,6 +8,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import start from './modules';
 import './mock'
+import i18n from "./i18n";
+
 
 const app =createApp(App)
 
@@ -16,7 +18,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
-app.use(router).use(createPinia()).use(ElementPlus).mount('#app')
+app.use(router).use(createPinia()).use(ElementPlus).use(i18n).mount('#app')
 start({
     sandbox: {
         experimentalStyleIsolation : true 

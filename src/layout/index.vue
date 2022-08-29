@@ -28,6 +28,7 @@ import LayoutMain from './components/layout-main.vue'
 }
 .el-container .el-aside {
 	width: auto;
+  overflow: hidden;
 	background-color: #545c64;
 }
 .el-container .el-main {

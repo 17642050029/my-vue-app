@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import { useSidebarStore } from '@/store/sidebar';
 import { useRouter } from 'vue-router';
+import LangSelect from './LangSelect.vue';
 // import imgurl from '../assets/img/img.jpg';
 import imgurl from '../../assets/vue.svg';
 const username: string | null = localStorage.getItem('ms_username');
@@ -39,6 +40,8 @@ const handleCommand = (command: string) => {
       </el-icon>
     </div>
     <div class="header-right">
+      <LangSelect/>
+      {{$t('msg.hello')}}
       <div class="header-user-con">
         <!-- 用户头像 -->
         <el-avatar class="user-avator" :size="30" :src="imgurl" />

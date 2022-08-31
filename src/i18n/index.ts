@@ -1,25 +1,19 @@
 import { createI18n } from "vue-i18n";
-import mZhLocale from "./lang/zh";
-import mEnLocale from "./lang/en";
-import {useSystemStore} from "../store/system"
+import zh from "./lang/zh-CN";
+import en from "./lang/en-US";
 
-const messages = {
-  zh: {
-    ...mZhLocale
-  },
-  en: {
-    ...mEnLocale
-  },
-};
-const system =useSystemStore()
+const { language }: string = localStorage.getItem('system')|| 'en-US'
 
-const i18n = createI18n({
+type MessageSchema = typeof zh | typeof en
+
+const i18n = createI18n<[MessageSchema], 'en-US' | 'zh-CN'>({
   // 使用 Composition API 模式，则需要将其设置为false
   legacy: false,
-  // 全局注入 $t 函数
-  globalInjection: true,
-  locale: system.language,
-  messages,
+  locale: language || 'zh-CN',
+  messages: {
+    'en-US': en, // 标识:配置对象
+    'zh-CN': zh
+  },
 });
 
 export default i18n

@@ -8,18 +8,11 @@ type microApp = {
   
   const apps: microApp[] = [
     {
-      name: "vue-child1",
-      entry: "//localhost:3001",
+      name: "designer-ui-workflow-monitor",
+      entry: "//localhost:8002",
       container: "#mirco",
-      activeRule: "#/m1",
-      port: "3001"
-    },
-    {
-      name: "vue-child2",
-      entry: "//localhost:3002",
-      container: "#mirco",
-      activeRule: "#/m2",
-      port: "3002"
+      activeRule: "#/designer/micro/designer-interface",
+      port: "8002"
     }
   ]
   export default apps 

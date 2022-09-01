@@ -1,6 +1,6 @@
 <script setup lang="ts" name="LayoutSidebar">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/store/sidebar';
+import { useSidebarStore } from '@/store/modulles/sidebar';
 import { useRoute } from 'vue-router';
 import logo from '@/assets/vue.svg'
 
@@ -16,178 +16,61 @@ const items = [
 		icon: 'Odometer',
 		index: '/dashboard',
 		title: '主应用首页',
-		permiss: '1'
+		permiss: '1',
 	},
 	{
 		icon: 'Odometer',
-		index: '/m1',
+		index: '/designer/micro/designer-interface',
 		title: '微应用1',
-		permiss: '1'
+		permiss: '1',
 	},
 	{
 		icon: 'Calendar',
 		index: '/m2',
 		title: '微应用2',
-		permiss: '2'
+		permiss: '2',
 	},
 	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	}, {
-		icon: 'Odometer',
-		index: '/dashboard',
-		title: '主应用首页',
-		permiss: '1'
+		icon: 'Edit',
+		index: '3',
+		title: '表单相关',
+		permiss: '4',
+		subs: [
+			{
+				index: '/form',
+				title: '基本表单',
+				permiss: '5'
+			},
+			{
+				index: '/upload',
+				title: '文件上传',
+				permiss: '6'
+			},
+			{
+				index: '4',
+				title: '三级菜单',
+				permiss: '7',
+				subs: [
+					{
+						index: '/editor',
+						title: '富文本编辑器',
+						permiss: '8'
+					},
+					{
+						index: '/markdown',
+						title: 'markdown编辑器',
+						permiss: '9'
+					}
+				]
+			}
+		]
 	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	}, {
-		icon: 'Odometer',
-		index: '/dashboard',
-		title: '主应用首页',
-		permiss: '1'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	}, {
-		icon: 'Odometer',
-		index: '/dashboard',
-		title: '主应用首页',
-		permiss: '1'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	}, {
-		icon: 'Odometer',
-		index: '/dashboard',
-		title: '主应用首页',
-		permiss: '1'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	},
-	{
-		icon: 'Odometer',
-		index: '/m1',
-		title: '微应用1',
-		permiss: '1'
-	},
-	{
-		icon: 'Calendar',
-		index: '/m2',
-		title: '微应用2',
-		permiss: '2'
-	},
-	{
-		icon: 'Calendar',
-		index: '/t',
-		title: '业务组件',
-		permiss: '2'
-	}
 ]
 const route = useRoute();
 const onRoutes = computed(() => {
 	return route.path;
 });
-// const sidebar = useSidebarStore();
+
 </script>
 
 <template>
@@ -196,11 +79,11 @@ const onRoutes = computed(() => {
 			<transition name="sidebarLogoFade">
 				<router-link v-if="sidebar.collapse" key="collapse" class="sidebar-logo-link" to="/">
 					<img v-if="logo" :src="logo" class="sidebar-logo">
-					<h1 v-else class="sidebar-title">{{  123  }} </h1>
+					<h1 v-else class="sidebar-title">{{ 123 }} </h1>
 				</router-link>
 				<router-link v-else key="expand" class="sidebar-logo-link" to="/">
 					<img v-if="logo" :src="logo" class="sidebar-logo">
-					<h1 class="sidebar-title">{{  1231312312  }} </h1>
+					<h1 class="sidebar-title">{{ 1231312312 }} </h1>
 				</router-link>
 			</transition>
 		</div>
@@ -214,18 +97,18 @@ const onRoutes = computed(() => {
 								<el-icon>
 									<component :is="item.icon"></component>
 								</el-icon>
-								<span>{{  item.title  }}</span>
+								<span>{{ item.title }}</span>
 							</template>
 							<template v-for="subItem in item.subs">
 								<el-sub-menu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-									<template #title>{{  subItem.title  }}</template>
+									<template #title>{{ subItem.title }}</template>
 									<el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i"
 										:index="threeItem.index">
-										{{  threeItem.title  }}
+										{{ threeItem.title }}
 									</el-menu-item>
 								</el-sub-menu>
 								<el-menu-item v-else :index="subItem.index">
-									{{  subItem.title  }}
+									{{ subItem.title }}
 								</el-menu-item>
 							</template>
 						</el-sub-menu>
@@ -235,7 +118,7 @@ const onRoutes = computed(() => {
 							<el-icon>
 								<component :is="item.icon"></component>
 							</el-icon>
-							<template #title>{{  item.title  }}</template>
+							<template #title>{{ item.title }}</template>
 						</el-menu-item>
 					</template>
 				</template>

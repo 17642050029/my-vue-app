@@ -31,7 +31,7 @@
 import { ref, reactive } from 'vue';
 // import { useTagsStore } from '../store/tags';
 // import { usePermissStore } from '../store/permiss';
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/modulles/user';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';

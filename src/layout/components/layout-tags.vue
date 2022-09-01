@@ -1,7 +1,7 @@
 <template>
 	<div class="tags">
 		<ul>
-            <!-- <el-tag
+			<!-- <el-tag
     v-for="(item, index) in tags.list"
     :key="index"
     closable
@@ -11,14 +11,12 @@
   >
   <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
   </el-tag> -->
-			<li
-				class="tags-li"
-				v-for="(item, index) in tags.list"
-				:class="{ active: isActive(item.path) }"
-				:key="index"
-			>
+			<li class="tags-li" v-for="(item, index) in tags.list" :class="{ active: isActive(item.path) }"
+				:key="index">
 				<router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
-				<el-icon v-if="item.name!=='dashboard'" @click="closeTags(index)"><Close /></el-icon>
+				<el-icon v-if="item.name !== 'dashboard'" @click="closeTags(index)">
+					<Close />
+				</el-icon>
 			</li>
 		</ul>
 		<!-- <div class="tags-close-box">
@@ -41,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTagsStore } from '@/store/tags';
+import { useTagsStore } from '@/store/modulles/tags';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -68,6 +66,8 @@ const setTags = (route: any) => {
 	const isExist = tags.list.some(item => {
 		return item.path === route.fullPath;
 	});
+	console.log(isExist);
+	
 	if (!isExist) {
 		if (tags.list.length >= 8) tags.del(0);
 		tags.add({
@@ -76,6 +76,8 @@ const setTags = (route: any) => {
 			path: route.fullPath
 		});
 	}
+	console.log(tags.list);
+	
 };
 setTags(route);
 onBeforeRouteUpdate(to => {

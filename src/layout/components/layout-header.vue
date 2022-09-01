@@ -1,37 +1,35 @@
 <script setup lang="ts" name="LayoutHeader">
 import { onMounted } from 'vue';
-import { useSidebarStore } from '@/store/sidebar';
+import { useSidebarStore } from '@/store/modulles/sidebar';
 import { useRouter } from 'vue-router';
 import LangSelect from './LangSelect.vue';
-// import imgurl from '../assets/img/img.jpg';
 import imgurl from '../../assets/vue.svg';
+
 const username: string | null = localStorage.getItem('ms_username');
-const message: number = 2;
+
 const sidebar = useSidebarStore();
 // 侧边栏折叠
-const collapseChage = () => {
-  // sidebar.handleCollapse();
+const changeCollapse = () => {
+  sidebar.handleCollapse();
 };
 onMounted(() => {
   if (document.body.clientWidth < 1500) {
-    collapseChage();
+    changeCollapse();
   }
 });
 // 用户名下拉菜单选择事件
 const router = useRouter();
 const handleCommand = (command: string) => {
-  if (command == 'loginout') {
+  if (command == 'logout') {
     localStorage.removeItem('accessToken');
     router.push('/login');
-  } else if (command == 'user') {
-    router.push('/user');
   }
 };
 </script>
 
 <template>
   <div class="layout-header">
-    <div class="collapse-btn" @click="sidebar.handleCollapse()">
+    <div class="collapse-btn" @click="changeCollapse">
       <el-icon v-if="sidebar.collapse">
         <Expand />
       </el-icon>
@@ -40,8 +38,7 @@ const handleCommand = (command: string) => {
       </el-icon>
     </div>
     <div class="header-right">
-      <LangSelect/>
-      {{$t('msg.hello')}}
+      <LangSelect />
       <div class="header-user-con">
         <!-- 用户头像 -->
         <el-avatar class="user-avator" :size="30" :src="imgurl" />
@@ -55,7 +52,7 @@ const handleCommand = (command: string) => {
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+              <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -64,7 +61,7 @@ const handleCommand = (command: string) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .layout-header {
   width: 100%;
   height: 70px;
@@ -93,6 +90,8 @@ const handleCommand = (command: string) => {
 
 .header-right {
   float: right;
+  display: flex;
+  align-items: center;
   padding-right: 50px;
 }
 

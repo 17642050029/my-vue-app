@@ -6,7 +6,7 @@
     >
       <div>
         <el-tooltip content="国际化">
-          <el-button>切换</el-button>
+          <el-button>语言</el-button>
         </el-tooltip>
       </div>
       <template #dropdown>
@@ -25,8 +25,8 @@
   <script setup lang="ts">
   import { useI18n } from "vue-i18n";
   import {  computed } from "vue";
-  import { useSystemStore } from "@/store/system";
-  import { ElMessage } from "element-plus";
+  import { useSystemStore } from "@/store/modulles/system";
+  // import { ElMessage } from "element-plus";
  
   const system = useSystemStore();
   const language = computed(() => system.language);

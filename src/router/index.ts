@@ -2,6 +2,15 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 // import { usePermissStore } from '../store/permiss'
 import Layout from "../layout/index.vue";
 import ConfigUtil from '../utils/config'
+
+import { getSystemMenus } from '../api/system'
+
+const { data: { data } } = await getSystemMenus({
+    appCode: "DESIGNER"
+})
+console.log(data);
+
+
 const routes: RouteRecordRaw[] = [
     {
         path: "/",
@@ -19,7 +28,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
             },
             {
-                path: "/m1",
+                path: "/designer/micro/designer-interface",
                 name: "m1",
                 meta: {
                     title: 'm1',
@@ -85,29 +94,29 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
-    const role = localStorage.getItem('ms_username');
-    // const permiss = usePermissStore();
-    if (!role && to.path !== '/login') {
-        next('/login');
-    } 
-    // else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
-    //     // 如果没有权限，则进入403
-    //     next('/403');
+    // const role = localStorage.getItem('ms_username');
+    // // const permiss = usePermissStore();
+    // if (!role && to.path !== '/login') {
+    //     next('/login');
     // } 
-    else {
-        next();
-    }
-    // const token = localStorage.getItem('accessToken');
-    // if (!token) {
-    //     let loginUrl = await ConfigUtil.getLocalConfig('loginUrl') 
-    //     loginUrl = loginUrl || '/toy-proxy/toy-login/?redirect=${redirect}'
-    //     const path = `${window.location.origin}${to.fullPath}`
-    //     loginUrl = loginUrl.replace('${redirect}', path)
-    //     console.log(loginUrl);
-    //     window.location.href = loginUrl;
-    // } else {
-    //     next()
+    // // else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
+    // //     // 如果没有权限，则进入403
+    // //     next('/403');
+    // // } 
+    // else {
+    //     next();
     // }
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        let loginUrl = await ConfigUtil.getLocalConfig('loginUrl')
+        loginUrl = loginUrl || '/toy-proxy/toy-login/?redirect=${redirect}'
+        const path = `${window.location.origin}${to.fullPath}`
+        loginUrl = loginUrl.replace('${redirect}', path)
+        console.log(loginUrl);
+        window.location.href = loginUrl;
+    } else {
+        next()
+    }
 });
 
 

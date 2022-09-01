@@ -76,7 +76,6 @@ const setTags = (route: any) => {
 			path: route.fullPath
 		});
 	}
-	console.log(tags.list);
 	
 };
 setTags(route);

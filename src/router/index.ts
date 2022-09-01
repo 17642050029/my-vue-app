@@ -3,35 +3,8 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../layout/index.vue";
 import ConfigUtil from '../utils/config'
 
-import { getSystemMenus } from '../api/system'
 
-const { data: { data } } = await getSystemMenus({
-    appCode: "DESIGNER"
-})
-
-
-const deepMap = (list: any) => {
-    return list.map((item: any) => {
-        const menu: any = {
-            path: '/' + item.url,
-            name: item.funCode,
-            meta: {
-                title: item.funZh,
-                icon:'Odometer'
-            },
-        }
-        if (item.url) {
-            menu.component = () => import("@/views/mirco/index.vue")
-        }
-        if (item.children && item.children.length) {
-            menu.children = deepMap(item.children)
-
-        }
-        return menu
-    })
-}
-
-const asyncRoute = deepMap(data)
+import { useMenusStore } from '../store/modulles/menus'
 
 
 const routes: RouteRecordRaw[] = [
@@ -77,7 +50,6 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/t/index.vue")
             },
-            ...asyncRoute
         ]
     }
     , {
@@ -130,17 +102,23 @@ router.beforeEach(async (to, from, next) => {
     //     next();
     // }
     const token = localStorage.getItem('accessToken');
+    // const menus = useMenusStore()
     if (!token) {
-        let loginUrl = await ConfigUtil.getLocalConfig('loginUrl')
-        loginUrl = loginUrl || '/toy-proxy/toy-login/?redirect=${redirect}'
-        const path = `${window.location.origin}${to.fullPath}`
-        loginUrl = loginUrl.replace('${redirect}', path)
-        console.log(loginUrl);
+        const redirectUrl = window.location.href;
+        const loginUrl = '/toy-proxy/toy-login/?redirect=' + redirectUrl;
         window.location.href = loginUrl;
     } else {
+        console.log(window.location.href);
+        
+        // if (!menus.menus.length) {
+        //     router.addRoute(await menus.getMenus())
+        // }
         next()
     }
 });
+router.afterEach((to,from,nex)=>{
+console.log(123);
 
+   })
 
 export default router;

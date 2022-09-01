@@ -8,7 +8,30 @@ import { getSystemMenus } from '../api/system'
 const { data: { data } } = await getSystemMenus({
     appCode: "DESIGNER"
 })
-console.log(data);
+
+
+const deepMap = (list: any) => {
+    return list.map((item: any) => {
+        const menu: any = {
+            path: '/' + item.url,
+            name: item.funCode,
+            meta: {
+                title: item.funZh,
+                icon:'Odometer'
+            },
+        }
+        if (item.url) {
+            menu.component = () => import("@/views/mirco/index.vue")
+        }
+        if (item.children && item.children.length) {
+            menu.children = deepMap(item.children)
+
+        }
+        return menu
+    })
+}
+
+const asyncRoute = deepMap(data)
 
 
 const routes: RouteRecordRaw[] = [
@@ -53,8 +76,8 @@ const routes: RouteRecordRaw[] = [
                     permiss: '1'
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/t/index.vue")
-            }
-
+            },
+            ...asyncRoute
         ]
     }
     , {

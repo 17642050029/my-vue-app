@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useSidebarStore } from '@/store/modulles/sidebar';
 import { useRoute } from 'vue-router';
+import router from '@/router';
 import logo from '@/assets/vue.svg'
 
 const sidebar = useSidebarStore()
@@ -70,6 +71,8 @@ const route = useRoute();
 const onRoutes = computed(() => {
 	return route.path;
 });
+const menus =  router.options.routes.filter(item=>item.name==='Layout')[0].children
+console.log(menus);
 
 </script>
 
@@ -90,35 +93,35 @@ const onRoutes = computed(() => {
 		<el-scrollbar>
 			<el-menu active-text-color="#ffd04b" background-color="#545c64" :default-active="route.path"
 				text-color="#fff" :collapse="sidebar.collapse" @open="handleOpen" @close="handleClose" router>
-				<template v-for="item in items">
-					<template v-if="item.subs">
-						<el-sub-menu :index="item.index" :key="item.index">
+				<template v-for="item in menus">
+					<template v-if="item.children">
+						<el-sub-menu :index="item.path" :key="item.path">
 							<template #title>
 								<el-icon>
-									<component :is="item.icon"></component>
+									<component :is="item.meta.icon"></component>
 								</el-icon>
-								<span>{{ item.title }}</span>
+								<span>{{ item.meta.title }}</span>
 							</template>
-							<template v-for="subItem in item.subs">
-								<el-sub-menu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-									<template #title>{{ subItem.title }}</template>
-									<el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i"
-										:index="threeItem.index">
-										{{ threeItem.title }}
+							<template v-for="subItem in item.children">
+								<el-sub-menu v-if="subItem.children" :index="subItem.path" :key="subItem.path">
+									<template #title>{{ subItem.meta.title }}</template>
+									<el-menu-item v-for="(threeItem, i) in subItem.children" :key="i"
+										:index="threeItem.path">
+										{{ threeItem.meta.title }}
 									</el-menu-item>
 								</el-sub-menu>
-								<el-menu-item v-else :index="subItem.index">
-									{{ subItem.title }}
+								<el-menu-item v-else :index="subItem.path">
+									{{ subItem.meta.title }}
 								</el-menu-item>
 							</template>
 						</el-sub-menu>
 					</template>
 					<template v-else>
-						<el-menu-item :index="item.index" :key="item.index">
+						<el-menu-item :index="item.path" :key="item.path">
 							<el-icon>
-								<component :is="item.icon"></component>
+								<component :is="item.meta.icon"></component>
 							</el-icon>
-							<template #title>{{ item.title }}</template>
+							<template #title>{{ item.meta.title }}</template>
 						</el-menu-item>
 					</template>
 				</template>

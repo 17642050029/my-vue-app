@@ -22,6 +22,7 @@ const router = useRouter();
 const handleCommand = (command: string) => {
   if (command == 'logout') {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('menus');
     router.push('/login');
   }
 };

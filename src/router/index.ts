@@ -1,7 +1,7 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 // import { usePermissStore } from '../store/permiss'
 import Layout from "../layout/index.vue";
-import ConfigUtil from '../utils/config'
+// import ConfigUtil from '../utils/config'
 
 
 import { useMenusStore } from '../store/modulles/menus'
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
             },
             {
-                path: "/designer/micro/designer-interface",
+                path: "/m1",
                 name: "m1",
                 meta: {
                     title: 'm1',
@@ -83,12 +83,12 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes
 });
 
-router.beforeEach(async (to, from, next) => {
-    document.title = `${to.meta.title} | vue-manage-system`;
+router.beforeEach(async (to, from) => {
+    // document.title = `${to.meta.title} | vue-manage-system`;
     // const role = localStorage.getItem('ms_username');
     // // const permiss = usePermissStore();
     // if (!role && to.path !== '/login') {
@@ -101,24 +101,26 @@ router.beforeEach(async (to, from, next) => {
     // else {
     //     next();
     // }
-    const token = localStorage.getItem('accessToken');
-    // const menus = useMenusStore()
+    const token: string = localStorage.getItem('accessToken') || '';
     if (!token) {
         const redirectUrl = window.location.href;
         const loginUrl = '/toy-proxy/toy-login/?redirect=' + redirectUrl;
         window.location.href = loginUrl;
+        return false
     } else {
-        console.log(window.location.href);
+        const menu = useMenusStore()
+        if (!menu.menus.length) {
+            const routes = await menu.getUserMenus()
+            console.log(routes);
+            router.addRoute(routes)
+            console.log(router);
+
+        }
         
-        // if (!menus.menus.length) {
-        //     router.addRoute(await menus.getMenus())
-        // }
-        next()
     }
 });
-router.afterEach((to,from,nex)=>{
-console.log(123);
+router.afterEach((to, from, nex) => {
 
-   })
+})
 
 export default router;

@@ -7,18 +7,16 @@ import logo from '@/assets/vue.svg'
 
 const sidebar = useSidebarStore()
 const handleOpen = (key: string, keyPath: string[]) => {
-	console.log(key, keyPath)
+	// console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-	console.log(key, keyPath)
+	// console.log(key, keyPath)
 }
-
 const route = useRoute();
 const onRoutes = computed(() => {
 	return route.path;
 });
 const menus =  router.options.routes.filter(item=>item.name==='Layout')[0].children
-console.log(menus);
 
 </script>
 

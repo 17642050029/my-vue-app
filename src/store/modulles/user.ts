@@ -6,9 +6,7 @@ export const useUserStore = defineStore('user', () => {
         token:''
     })
     const token =computed(()=>userInfo.value.token)
-	const setUserInfo = (info:any) => {
-		console.log(123123);
-		
+	const setUserInfo = (info:any) => {	
 		userInfo.value = info
 		localStorage.setItem('ms_username', userInfo.value.token);
 	}

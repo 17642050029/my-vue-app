@@ -66,7 +66,6 @@ const setTags = (route: any) => {
 	const isExist = tags.list.some(item => {
 		return item.path === route.fullPath;
 	});
-	console.log(isExist);
 	
 	if (!isExist) {
 		if (tags.list.length >= 8) tags.del(0);

@@ -7,7 +7,6 @@ const mockModules: any[] = [];
 Object.keys(modules).forEach((key) => {
   mockModules.push(modules[key]);
 });
-console.log(mockModules);
 
 
 /**

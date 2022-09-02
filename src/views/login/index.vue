@@ -68,14 +68,12 @@ const submitForm = (formEl: FormInstance | undefined) => {
             const result = await userLogin(param)
             if (result.data.meta.status === 200) {
                 ElMessage.success('登录成功');
-                console.log(user);
                 
                 user.setUserInfo(result.data.userInfo)
                 router.push('/');
             } else {
                 ElMessage.error(result.data.meta.msg);
             }
-            console.log(result);
 
             // const keys = permiss.defaultList[param.username == 'admin' ? 'admin' : 'user'];
             // permiss.handleSet(keys);

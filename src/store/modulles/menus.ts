@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { getSystemMenus } from '@/api/system'
+import Layout from "@/layout/index.vue";
 export const useMenusStore = defineStore('menus', () => {
     const menus = ref<[]>([])
     const setMenus = (menu: any) => {
@@ -16,6 +17,7 @@ export const useMenusStore = defineStore('menus', () => {
                     title: item.funZh,
                     icon: 'Odometer'
                 },
+                component:Layout
             }
             if (item.url) {
                 menu.component = () => import("@/views/mirco/index.vue")
@@ -27,7 +29,7 @@ export const useMenusStore = defineStore('menus', () => {
             return menu
         })
     }
-    const getMenus = async () => {
+    const getUserMenus = async () => {
         const { data: { data } } = await getSystemMenus({
             appCode: "DESIGNER"
         })
@@ -38,6 +40,6 @@ export const useMenusStore = defineStore('menus', () => {
     return {
         menus,
         setMenus,
-        getMenus
+        getUserMenus
     }
-},{persist: true});
+}, { persist: true });

@@ -16,7 +16,7 @@ const route = useRoute();
 const onRoutes = computed(() => {
 	return route.path;
 });
-const menus =  router.options.routes.filter(item=>item.name==='Layout')[0].children
+const menus =  computed(()=>router.getRoutes().filter(item=>item.meta.top))
 
 </script>
 
@@ -24,11 +24,11 @@ const menus =  router.options.routes.filter(item=>item.name==='Layout')[0].child
 	<div class="layout-sidebar">
 		<div class="sidebar-logo-container" :class="{ 'collapse': sidebar.collapse }">
 			<transition name="sidebarLogoFade">
-				<router-link v-if="sidebar.collapse" key="collapse" class="sidebar-logo-link" to="/">
+				<router-link v-if="sidebar.collapse" key="collapse" class="sidebar-logo-link" to="/404">
 					<img v-if="logo" :src="logo" class="sidebar-logo">
 					<h1 v-else class="sidebar-title">{{ 123 }} </h1>
 				</router-link>
-				<router-link v-else key="expand" class="sidebar-logo-link" to="/">
+				<router-link v-else key="expand" class="sidebar-logo-link" to="/404">
 					<img v-if="logo" :src="logo" class="sidebar-logo">
 					<h1 class="sidebar-title">{{ 1231312312 }} </h1>
 				</router-link>

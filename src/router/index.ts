@@ -11,6 +11,9 @@ const routes: RouteRecordRaw[] = [
     {
         path: "/",
         name: "Layout",
+        meta: {
+            title: '',
+        },
         component: Layout,
         redirect: '/dashboard',
         children: [
@@ -19,7 +22,7 @@ const routes: RouteRecordRaw[] = [
                 name: "dashboard",
                 meta: {
                     title: '系统首页',
-                    permiss: '1'
+                    top:true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
             },
@@ -28,7 +31,7 @@ const routes: RouteRecordRaw[] = [
                 name: "m1",
                 meta: {
                     title: 'm1',
-                    permiss: '1'
+                    top:true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -37,7 +40,7 @@ const routes: RouteRecordRaw[] = [
                 name: "m2",
                 meta: {
                     title: 'm2',
-                    permiss: '1'
+                    top:true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -46,7 +49,7 @@ const routes: RouteRecordRaw[] = [
                 name: "t",
                 meta: {
                     title: '业务组件',
-                    permiss: '1'
+                    top:true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/t/index.vue")
             },
@@ -56,7 +59,8 @@ const routes: RouteRecordRaw[] = [
         path: "/404",
         name: "404",
         meta: {
-            title: '404'
+            title: '404',
+            top:true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/404.vue")
     },
@@ -64,7 +68,8 @@ const routes: RouteRecordRaw[] = [
         path: "/login",
         name: "Login",
         meta: {
-            title: '登录'
+            title: '登录',
+            top:true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/login/index.vue")
     },
@@ -111,16 +116,13 @@ router.beforeEach(async (to, from) => {
         const menu = useMenusStore()
         if (!menu.menus.length) {
             const routes = await menu.getUserMenus()
-            console.log(routes);
-            router.addRoute(routes)
-            console.log(router);
-
+            routes.forEach((route: any) => {
+                router.addRoute(route)
+            })
         }
-        
+        console.log(router.getRoutes());
     }
 });
-router.afterEach((to, from, nex) => {
 
-})
 
 export default router;

@@ -30,6 +30,12 @@ service.interceptors.response.use(
     },
     (error: AxiosError) => {
         console.log(error);
+        if(error.response?.status === 401) {
+            localStorage.removeItem('accessToken');
+            const redirectUrl = window.location.href;
+            const loginUrl = '/toy-proxy/toy-login/?redirect=' + redirectUrl;
+            window.location.href = loginUrl;
+        }
         return Promise.reject();
     }
 );

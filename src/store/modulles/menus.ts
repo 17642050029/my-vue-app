@@ -24,6 +24,7 @@ export const useMenusStore = defineStore('menus', () => {
                 menu.path = '/' + item.url
                 menu.component = () => import("@/views/mirco/index.vue")
             }else {
+                menu.path = '/' + item.funCode
                 menu.meta.top=true
             }
             if (item.children?.length) {

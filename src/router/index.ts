@@ -9,7 +9,7 @@ import { useMenusStore } from '../store/modulles/menus'
 
 const routes: RouteRecordRaw[] = [
     {
-        path: "/",
+        path: "/home",
         name: "Layout",
         meta: {
             title: '',
@@ -31,7 +31,6 @@ const routes: RouteRecordRaw[] = [
                 name: "m1",
                 meta: {
                     title: 'm1',
-                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -40,7 +39,6 @@ const routes: RouteRecordRaw[] = [
                 name: "m2",
                 meta: {
                     title: 'm2',
-                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -49,7 +47,6 @@ const routes: RouteRecordRaw[] = [
                 name: "t",
                 meta: {
                     title: '业务组件',
-                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/t/index.vue")
             },
@@ -60,7 +57,6 @@ const routes: RouteRecordRaw[] = [
         name: "404",
         meta: {
             title: '404',
-            top: true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/404.vue")
     },
@@ -69,7 +65,6 @@ const routes: RouteRecordRaw[] = [
         name: "Login",
         meta: {
             title: '登录',
-            top: true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/login/index.vue")
     },
@@ -114,10 +109,10 @@ router.beforeEach(async (to, from) => {
         window.location.href = loginUrl;
         return false
     } else {
-        const menu = useMenusStore()
-        const routes = await menu.getUserMenus()
         if (firstEnterRoute) {
-            routes.forEach((item: any) => router.addRoute(item))
+            const menu = useMenusStore()
+            const routes = await menu.getUserMenus()
+            routes.forEach((item: any) => router.addRoute('Layout',item))
             firstEnterRoute = false
             router.push({ ...to, replace: true })
         }

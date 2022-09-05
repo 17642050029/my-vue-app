@@ -1,9 +1,8 @@
 import request from '../utils/request';
 
-export const getSystemMenus = (data: any) => {
+export const getSystemMenus = () => {
     return request({
-        url: '/auth-external-microservice/v1/account/listFuns',
-        method: 'post',
-        data
+        url: '/nms/itnms-server/sys-auth/api/auth/menu/user',
+        method: 'get',
     });
 };

@@ -9,12 +9,12 @@ export default defineConfig({
     // port: 3000,
     proxy: {
       '/toy-proxy/toy-login': {
-        target: 'http://192.168.121.64:30406',
+        target: 'http://192.168.121.70:59080',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
       },
-      '/auth-external-microservice': {
-        target: 'http://192.168.121.64:9000',
+      '/nms/itnms-server/sys-auth': {
+        target: 'http://192.168.121.70:59080',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
       }

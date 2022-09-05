@@ -13,30 +13,27 @@ export const useMenusStore = defineStore('menus', () => {
         return list.map((item: any) => {
             const menu: any = {
                 path: '',
-                name: item.funCode,
+                name: item.name,
                 meta: {
-                    title: item.funZh,
+                    title: item.name_zh,
                     icon: 'Odometer'
                 },
-                component: () => import("@/layout/index.vue")
             }
-            if (item.url) {
+            if (item.pid) {
                 menu.path = '/' + item.url
                 menu.component = () => import("@/views/mirco/index.vue")
             }else {
-                menu.path = '/' + item.funCode
+                menu.path = item.name
                 menu.meta.top=true
             }
-            if (item.children?.length) {
-                menu.children = deepMap(item.children)
+            if (item.subMenu?.length) {
+                menu.children = deepMap(item.subMenu)
             }
             return menu
         })
     }
     const getUserMenus = async () => {
-            const { data: { data } } = await getSystemMenus({
-                appCode: "DESIGNER"
-            })
+            const { data: { data } } = await getSystemMenus()
             const menus = deepMap(data)
             setMenus(menus)
             return menus

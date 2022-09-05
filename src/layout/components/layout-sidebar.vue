@@ -17,6 +17,7 @@ const onRoutes = computed(() => {
 	return route.path;
 });
 const menus =  computed(()=>router.getRoutes().filter(item=>item.meta.top))
+console.log(router.getRoutes());
 
 </script>
 
@@ -38,7 +39,7 @@ const menus =  computed(()=>router.getRoutes().filter(item=>item.meta.top))
 			<el-menu active-text-color="#ffd04b" background-color="#545c64" :default-active="route.path"
 				text-color="#fff" :collapse="sidebar.collapse" @open="handleOpen" @close="handleClose" router>
 				<template v-for="item in menus">
-					<template v-if="item.children">
+					<template v-if="item.children.length">
 						<el-sub-menu :index="item.path" :key="item.path">
 							<template #title>
 								<el-icon>

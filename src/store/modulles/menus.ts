@@ -12,19 +12,20 @@ export const useMenusStore = defineStore('menus', () => {
     const deepMap = (list: any) => {
         return list.map((item: any) => {
             const menu: any = {
-                path: '',
+                path: item.url || item.name,
                 name: item.name,
                 meta: {
                     title: item.name_zh,
-                    icon: 'Odometer'
                 },
             }
-            if (item.pid) {
-                menu.path = '/' + item.url
+            if (item.url) {
                 menu.component = () => import("@/views/mirco/index.vue")
-            }else {
-                menu.path = item.name
-                menu.meta.top=true
+            }
+            if (!item.pid) {
+                menu.meta.top = true
+                if (!item.url) {
+                    menu.redirect = '/' + item.subMenu[0].url
+                }
             }
             if (item.subMenu?.length) {
                 menu.children = deepMap(item.subMenu)
@@ -33,10 +34,10 @@ export const useMenusStore = defineStore('menus', () => {
         })
     }
     const getUserMenus = async () => {
-            const { data: { data } } = await getSystemMenus()
-            const menus = deepMap(data)
-            setMenus(menus)
-            return menus
+        const { data: { data } } = await getSystemMenus()
+        const menus = deepMap(data)
+        setMenus(menus)
+        return menus
     }
     const clearMenus = () => {
         setMenus([])

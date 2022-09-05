@@ -48,14 +48,14 @@ console.log(router.getRoutes());
 								<span>{{ item.meta.title }}</span>
 							</template>
 							<template v-for="subItem in item.children">
-								<el-sub-menu v-if="subItem.children" :index="subItem.path" :key="subItem.path">
+								<el-sub-menu v-if="subItem.children" :index="item.path+'/'+subItem.path" :key="subItem.path">
 									<template #title>{{ subItem.meta.title }}</template>
 									<el-menu-item v-for="(threeItem, i) in subItem.children" :key="i"
 										:index="threeItem.path">
 										{{ threeItem.meta.title }}
 									</el-menu-item>
 								</el-sub-menu>
-								<el-menu-item v-else :index="subItem.path">
+								<el-menu-item v-else :index="item.path+'/'+subItem.path">
 									{{ subItem.meta.title }}
 								</el-menu-item>
 							</template>

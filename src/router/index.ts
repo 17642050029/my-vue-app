@@ -9,33 +9,32 @@ import { useMenusStore } from '../store/modulles/menus'
 
 const routes: RouteRecordRaw[] = [
     {
-        path: "/home",
+        path: "/",
         name: "Layout",
-        meta: {
-            title: '',
-        },
         component: Layout,
         redirect: '/dashboard',
         children: [
             {
-                path: "/dashboard",
+                path: "dashboard",
                 name: "dashboard",
                 meta: {
                     title: '系统首页',
                     top: true
                 },
-                component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
+                // component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
+                children:[
+                    {
+                        path: "m1",
+                        name: "m1",
+                        meta: {
+                            title: 'm1',
+                        },
+                        component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
+                    },
+                ]
             },
             {
-                path: "/m1",
-                name: "m1",
-                meta: {
-                    title: 'm1',
-                },
-                component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
-            },
-            {
-                path: "/m2",
+                path: "m2",
                 name: "m2",
                 meta: {
                     title: 'm2',
@@ -43,7 +42,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
             {
-                path: "/t",
+                path: "t",
                 name: "t",
                 meta: {
                     title: '业务组件',
@@ -116,14 +115,6 @@ router.beforeEach(async (to, from) => {
             firstEnterRoute = false
             router.push({ ...to, replace: true })
         }
-
-        // if (!menu.menus.length) {
-        //     routes.forEach((route: any) => {
-        //         router.addRoute(route)
-        //     })
-        // }
-        // router.push({ ...to, replace: true })
-        // console.log(router.getRoutes());
     }
 });
 

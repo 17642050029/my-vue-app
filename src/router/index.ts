@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
                 name: "dashboard",
                 meta: {
                     title: '系统首页',
-                    top:true
+                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue")
             },
@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
                 name: "m1",
                 meta: {
                     title: 'm1',
-                    top:true
+                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -40,7 +40,7 @@ const routes: RouteRecordRaw[] = [
                 name: "m2",
                 meta: {
                     title: 'm2',
-                    top:true
+                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/mirco/index.vue")
             },
@@ -49,7 +49,7 @@ const routes: RouteRecordRaw[] = [
                 name: "t",
                 meta: {
                     title: '业务组件',
-                    top:true
+                    top: true
                 },
                 component: () => import( /* webpackChunkName: "dashboard" */ "@/views/t/index.vue")
             },
@@ -60,7 +60,7 @@ const routes: RouteRecordRaw[] = [
         name: "404",
         meta: {
             title: '404',
-            top:true
+            top: true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/404.vue")
     },
@@ -69,7 +69,7 @@ const routes: RouteRecordRaw[] = [
         name: "Login",
         meta: {
             title: '登录',
-            top:true
+            top: true
         },
         component: () => import( /* webpackChunkName: "login" */ "@/views/login/index.vue")
     },
@@ -92,6 +92,7 @@ const router = createRouter({
     routes
 });
 
+let firstEnterRoute = true
 router.beforeEach(async (to, from) => {
     // document.title = `${to.meta.title} | vue-manage-system`;
     // const role = localStorage.getItem('ms_username');
@@ -114,13 +115,20 @@ router.beforeEach(async (to, from) => {
         return false
     } else {
         const menu = useMenusStore()
-        if (!menu.menus.length) {
-            const routes = await menu.getUserMenus()
-            routes.forEach((route: any) => {
-                router.addRoute(route)
-            })
+        const routes = await menu.getUserMenus()
+        if (firstEnterRoute) {
+            routes.forEach((item: any) => router.addRoute(item))
+            firstEnterRoute = false
+            router.push({ ...to, replace: true })
         }
-        console.log(router.getRoutes());
+
+        // if (!menu.menus.length) {
+        //     routes.forEach((route: any) => {
+        //         router.addRoute(route)
+        //     })
+        // }
+        // router.push({ ...to, replace: true })
+        // console.log(router.getRoutes());
     }
 });
 

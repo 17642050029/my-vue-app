@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { getSystemMenus } from '@/api/system'
-import Layout from "@/layout/index.vue";
+// import Layout from "@/layout/index.vue";
 export const useMenusStore = defineStore('menus', () => {
     const menus = ref<[]>([])
     const setMenus = (menu: any) => {
@@ -18,7 +18,7 @@ export const useMenusStore = defineStore('menus', () => {
                     title: item.funZh,
                     icon: 'Odometer'
                 },
-                component: Layout
+                component: () => import("@/layout/index.vue")
             }
             if (item.url) {
                 menu.path = '/' + item.url
@@ -34,18 +34,12 @@ export const useMenusStore = defineStore('menus', () => {
         })
     }
     const getUserMenus = async () => {
-        const localMenus = JSON.parse(localStorage.getItem('menus') || '[]')
-        if (localMenus.length) {
-            setMenus(localMenus)
-            return localMenus
-        } else {
             const { data: { data } } = await getSystemMenus({
                 appCode: "DESIGNER"
             })
             const menus = deepMap(data)
             setMenus(menus)
             return menus
-        }
     }
     const clearMenus = () => {
         setMenus([])

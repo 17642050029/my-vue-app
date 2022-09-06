@@ -7,11 +7,11 @@ type microApp = {
   }
   const apps: microApp[] = [
     {
-      name: "designer-ui-workflow-monitor",
-      entry: "//localhost:8002",
+      name: "itnms-ui-business",
+      entry: "//localhost:7004",
       container: "#mirco",
-      activeRule: "/micro-itnms-business/data-monitor/index",
-      port: "8002"
+      activeRule: "/Performance/micro-itnms-business/data-monitor/index",
+      port: "7004"
     }
   ]
   export default apps 

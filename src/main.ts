@@ -8,13 +8,13 @@ import i18n from "./i18n";
 import start from './modules';
 import '../mock'
 
+const app = createApp(App)
+
+
+app.use(router).use(pinia).use(ElementPlus).use(i18n).mount('#app')
 start({
     sandbox: {
         experimentalStyleIsolation: true
     }
 })
-const app = createApp(App)
-
-
-app.use(router).use(pinia).use(ElementPlus).use(i18n).mount('#app')
 

@@ -11,7 +11,7 @@ type microApp = {
       // 带后缀才能访问到 /nms/micro/itnms-business/  ！！！！
       entry: "//localhost:7004/nms/micro/itnms-business",
       container: "#mirco",
-      activeRule: "/nms/micro/itnms-business",
+      activeRule: "/nms/micro-itnms-business",
       port: "7004"
     }
   ]

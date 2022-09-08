@@ -14,7 +14,7 @@ export const useMenusStore = defineStore('menus', () => {
     const deepMap = (list: any) => {
         return list.map((item: any) => {
             const menu: any = {
-                path: item.url?.replace('micro-','micro/') || 'nms',
+                path: item.url || 'nms',
                 name: item.name,
                 meta: {
                     title: item.name_zh,

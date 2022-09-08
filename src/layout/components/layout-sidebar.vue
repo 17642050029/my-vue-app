@@ -38,9 +38,9 @@ console.log(router.getRoutes());
 		<el-scrollbar>
 			<el-menu active-text-color="#ffd04b" background-color="#545c64" :default-active="route.path"
 				text-color="#fff" :collapse="sidebar.collapse" @open="handleOpen" @close="handleClose" router>
-				<template v-for="item in menus">
+				<template v-for="item,index in menus">
 					<template v-if="item.children.length">
-						<el-sub-menu :index="item.path" :key="item.path">
+						<el-sub-menu :index="item.path+index" :key="item.path+index">
 							<template #title>
 								<el-icon>
 									<component :is="item.meta.icon"></component>

@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-
+import addCssPrefix from'postcss-change-css-prefix'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
@@ -27,5 +27,20 @@ export default defineConfig({
       "@": resolve(__dirname, 'src'), // 路径别名
       
     }
+  },
+  css:{
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "~/styles/element/index.scss" as *;`,
+      },
+    },
+    // postcss:{
+    //   plugins:[
+    //     addCssPrefix({
+    //       prefix: 'el-',
+    //       replace: 'ep-',
+    //     })
+    //   ]
+    // },
   }
 })

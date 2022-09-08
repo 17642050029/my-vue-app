@@ -12,9 +12,5 @@ const app = createApp(App)
 
 
 app.use(router).use(pinia).use(ElementPlus).use(i18n).mount('#app')
-start({
-    sandbox: {
-        experimentalStyleIsolation: true
-    }
-})
+start()
 

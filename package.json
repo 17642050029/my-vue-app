@@ -26,6 +26,8 @@
     "electron-vite": "^1.0.7",
     "less": "^4.1.3",
     "mockjs": "^1.1.0",
+    "postcss-change-css-prefix": "^1.0.4",
+    "sass": "^1.54.9",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
     "vite-plugin-mock": "^2.9.6",

@@ -75,7 +75,7 @@ console.log(router.getRoutes());
 	</div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .layout-sidebar {
 	display: inline-block;
 	height: 100%;

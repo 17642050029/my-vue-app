@@ -8,11 +8,13 @@ export const useMenusStore = defineStore('menus', () => {
         menus.value = menu
         localStorage.setItem('menus', JSON.stringify(menu))
     }
+// 判断当前开发环境
+// console.log(import.meta.env.DEV);
 
     const deepMap = (list: any) => {
         return list.map((item: any) => {
             const menu: any = {
-                path: item.url || item.name,
+                path: item.url?.replace('micro-','micro/') || 'nms',
                 name: item.name,
                 meta: {
                     title: item.name_zh,

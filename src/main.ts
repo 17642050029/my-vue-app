@@ -7,7 +7,7 @@ import ElementPlus from './plugins/element'
 import i18n from "./i18n";
 import start from './modules';
 import '../mock'
-
+// import 'uno.css'
 const app = createApp(App)
 
 

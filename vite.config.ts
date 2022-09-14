@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import addCssPrefix from'postcss-change-css-prefix'
+import addCssPrefix from 'postcss-change-css-prefix'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
@@ -17,7 +18,12 @@ export default defineConfig({
         target: 'http://192.168.121.70:59080',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
-      }
+      },
+      '/nms/micro/itnms-business': {
+        target: 'http://localhost:7004',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
+      },
     }
   },
   resolve: {
@@ -25,22 +31,23 @@ export default defineConfig({
       //解决警告You are running the esm-bundler build of vue-i18n. It is recommended to configure your bundler to explicitly replace feature flag globals with boolean literals to get proper tree-shaking in the final bundle.
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       "@": resolve(__dirname, 'src'), // 路径别名
-      
     }
   },
-  css:{
+  css: {
+    // 修改element-plus的样式前缀
     preprocessorOptions: {
       scss: {
         additionalData: `@use "/src/styles/element/index.scss" as *;`,
       },
     },
-    // postcss:{
-    //   plugins:[
-    //     addCssPrefix({
-    //       prefix: 'el-',
-    //       replace: 'ep-',
-    //     })
-    //   ]
-    // },
+    // 修改所有css的样式前缀
+    postcss: {
+      plugins: [
+        addCssPrefix({
+          prefix: 'el-',
+          replace: 'ep-',
+        })
+      ]
+    },
   }
 })

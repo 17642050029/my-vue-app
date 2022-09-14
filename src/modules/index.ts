@@ -34,6 +34,7 @@ import {
   addGlobalUncaughtErrorHandler((event: Event | string) => {
     console.error(event);
   });
+
   
   // 导出 qiankun 的启动函数
   export default start;

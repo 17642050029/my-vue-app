@@ -29,7 +29,7 @@ const handleCommand = (command: string) => {
 </script>
 
 <template>
-  <div class="layout-header">
+  <div class="layout-header"> 
     <div class="collapse-btn" @click="changeCollapse">
       <el-icon v-if="sidebar.collapse">
         <Expand />

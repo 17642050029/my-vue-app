@@ -7,6 +7,6 @@
     </el-config-provider>
 </template>
 
-<style lang="scss">
+<style>
 @import '@/assets/css/reset.css';
 </style>

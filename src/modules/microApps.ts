@@ -31,6 +31,21 @@ const apps: microApp[] = [
     props: {
       microProps: {
         locale: i18n,
+        keepAlive:true
+      }
+    }
+  },
+  {
+    name: "itnms-topo",
+    // 带后缀才能访问到 /nms/micro/itnms-business/  ！！！！
+    entry: "//localhost:7006/nms/micro/itnms-business",
+    container: "#mirco",
+    activeRule: "/nms/micro-itnms-topo",
+    port: "7004",
+    props: {
+      microProps: {
+        locale: i18n,
+        keepAlive:true
       }
     }
   }

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 // import { usePermissStore } from '../store/permiss'
 import Layout from "../layout/index.vue";
 // import ConfigUtil from '../utils/config'
+import MicroApps from '../modules/microApps'
 
 
 import { useMenusStore } from '../store/modulles/menus'
@@ -86,6 +87,16 @@ const router = createRouter({
     routes
 });
 
+// 手动控制应用加载
+import {loadMicroApp} from 'qiankun';
+
+// 缓存应用实例
+const microList = new Map([])
+// 当前应用配置
+let current={
+    activeRule:''
+}
+
 let firstEnterRoute = true
 router.beforeEach(async (to, from) => {
     // document.title = `${to.meta.title} | vue-manage-system`;
@@ -101,6 +112,9 @@ router.beforeEach(async (to, from) => {
     // else {
     //     next();
     // }
+    
+
+
     const token: string = localStorage.getItem('accessToken') || '';
     if (!token) {
         const redirectUrl = window.location.href;
@@ -113,6 +127,34 @@ router.beforeEach(async (to, from) => {
             const routes = await menu.getUserMenus()
             routes.forEach((item: any) => router.addRoute('Layout',item))
             firstEnterRoute = false
+            const conf = MicroApps.find(item => to.path.indexOf(item.activeRule) !== -1)
+            // debugger
+            if(conf){
+        
+                // 未切换子应用
+                if(current &&  current.activeRule === conf.activeRule ){
+                    router.push({ ...to, replace: true })
+                  return 
+                }
+                
+                const cacheMicro = microList.get(conf.activeRule)
+                
+                // 已缓存应用
+                if(cacheMicro){
+                    router.push({ ...to, replace: true })
+                  return
+                }
+                
+                // 未缓存应用
+                const micro = loadMicroApp(conf)
+                  
+                microList.set(conf.activeRule, micro)
+                console.log(microList);
+                
+                current = conf
+                router.push({ ...to, replace: true })
+            
+              }
             router.push({ ...to, replace: true })
         }
     }

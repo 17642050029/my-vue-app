@@ -2,11 +2,12 @@
   "name": "my-vue-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "main": "main.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:serve": "electron ."
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -23,14 +24,15 @@
   "devDependencies": {
     "@types/node": "^18.7.13",
     "@vitejs/plugin-vue": "^3.0.3",
+    "electron": "^20.1.4",
     "mockjs": "^1.1.0",
     "postcss-change-css-prefix": "^1.0.4",
     "sass": "^1.54.9",
     "typescript": "^4.6.4",
+    "unocss": "^0.34.1",
+    "unplugin-vue-components": "^0.19.5",
     "vite": "^3.0.7",
     "vite-plugin-mock": "^2.9.6",
-    "vue-tsc": "^0.39.5",
-    "unocss": "^0.34.1",
-    "unplugin-vue-components": "^0.19.5"
+    "vue-tsc": "^0.39.5"
   }
 }

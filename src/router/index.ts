@@ -129,32 +129,32 @@ router.beforeEach(async (to, from) => {
             firstEnterRoute = false
             const conf = MicroApps.find(item => to.path.indexOf(item.activeRule) !== -1)
             // debugger
-            if(conf){
+            // if(conf){
         
-                // 未切换子应用
-                if(current &&  current.activeRule === conf.activeRule ){
-                    router.push({ ...to, replace: true })
-                  return 
-                }
+            //     // 未切换子应用
+            //     if(current &&  current.activeRule === conf.activeRule ){
+            //         router.push({ ...to, replace: true })
+            //       return 
+            //     }
                 
-                const cacheMicro = microList.get(conf.activeRule)
+            //     const cacheMicro = microList.get(conf.activeRule)
                 
-                // 已缓存应用
-                if(cacheMicro){
-                    router.push({ ...to, replace: true })
-                  return
-                }
+            //     // 已缓存应用
+            //     if(cacheMicro){
+            //         router.push({ ...to, replace: true })
+            //       return
+            //     }
                 
-                // 未缓存应用
-                const micro = loadMicroApp(conf)
+            //     // 未缓存应用
+            //     const micro = loadMicroApp(conf)
                   
-                microList.set(conf.activeRule, micro)
-                console.log(microList);
+            //     microList.set(conf.activeRule, micro)
+            //     console.log(microList);
                 
-                current = conf
-                router.push({ ...to, replace: true })
+            //     current = conf
+            //     router.push({ ...to, replace: true })
             
-              }
+            //   }
             router.push({ ...to, replace: true })
         }
     }

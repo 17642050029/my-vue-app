@@ -14,7 +14,8 @@ export default (({ mode }) => {
     plugins: [vue()],
     envDir: './env',
     server: {
-      // port: 3000,
+      host: '0.0.0.0', //ip地址
+      port: 3000, //端口号
       proxy: {
         '/toy-proxy/toy-login': {
           target: 'http://192.168.121.70:59080',

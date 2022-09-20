@@ -23,6 +23,7 @@ const handleCommand = (command: string) => {
   if (command == 'logout') {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('menus');
+    localStorage.removeItem('tags');
     router.push('/login');
   }
 };
